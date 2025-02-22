@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seznam výletů</title>
+</head>
+<body>
+    <h2>Seznam výletů</h2>
+
+    {% if user.is_authenticated %}
+        <p>Přihlášen jako <strong>{{ user.username }}</strong> | <a href="{% url 'logout' %}">Odhlásit</a></p>
+
+        <!-- Formulář pro přidání výletu -->
+        <form id="tripForm">
+            <input type="text" id="name" placeholder="Název výletu" required>
+            <input type="date" id="date" required>
+            <input type="text" id="description" placeholder="Popis výletu" required>
+            <button type="submit">Přidat výlet</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Přihlásit se</a> | <a href="{% url 'register' %}">Registrovat</a></p>
+    {% endif %}
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Název</th>
+            <th>Datum</th>
+            <th>Popis</th>
+            {% if user.is_authenticated %}<th>Akce</th>{% endif %}
+        </tr>
+        {% for vylet in vylety %}
+        <tr>
+            <td>{{ vylet.id }}</td>
+            <td>{{ vylet.name }}</td>
+            <td>{{ vylet.date }}</td>
+            <td>{{ vylet.description }}</td>
+            {% if user.is_authenticated %}
+            <td><button onclick="deleteVylet({{ vylet.id }})">Smazat</button></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        async function deleteVylet(id) {
+            await fetch(`/delete_vylet/${id}/`, { method: "DELETE" });
+            location.reload();
+        }
+    </script>
+</body>
+</html>

@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Přihlášení</title>
 </head>
 <body>
-
+    <h2>Přihlášení</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Uživatelské jméno:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label>Heslo:</label>
+        <input type="password" name="password" required>
+        <br>
+        <button type="submit">Přihlásit se</button>
+    </form>
+    <p>Nemáte účet? <a href="{% url 'register' %}">Registrujte se</a></p>
 </body>
 </html>

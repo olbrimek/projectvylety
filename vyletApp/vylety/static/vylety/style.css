@@ -1,5 +1,41 @@
 <head>
     <style>
+
+/* Hlavní navigační menu */
+.menu {
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Odkazy v menu */
+.menu a {
+    color: #000000;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+/* Zvýraznění aktivní stránky */
+.menu a.active {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+/* Efekt při najetí myší */
+.menu a:hover {
+    background-color: #777;
+    border-radius: 5px;
+}
+
+/* Obsah stránky */
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+
         /* Celkový styl stránky */
         body {
     font-family: Arial, sans-serif;
@@ -98,5 +134,7 @@ button:hover {
     font-weight: bold;
     transition: opacity 0.5s ease-out;
     }
+
+
     </style>
 </head>

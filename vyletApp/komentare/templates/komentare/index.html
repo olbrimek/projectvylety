@@ -1,0 +1,27 @@
+{% extends 'vylety/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Komentare</title>
+</head>
+<body>
+{% block title %}Komentare{% endblock %}
+
+{% block content %}
+
+<!-- Navigační lišta -->
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            Přihlášen jako <strong>{{ user.username }}</strong> | <a href="{% url 'logout' %}">Odhlásit</a>
+        {% else %}
+            <a href="{% url 'login' %}">Přihlášení</a>
+            <a href="{% url 'register' %}">Registrace</a>
+        {% endif %}
+    </div>
+
+<h2>Komentáře</h2>
+<p>Seznam komentářů...</p>
+{% endblock %}
+</body>
+</html>

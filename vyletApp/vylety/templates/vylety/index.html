@@ -1,3 +1,4 @@
+    {% extends 'vylety/base.html' %}
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -27,6 +28,7 @@
         <p><a href="{% url 'login' %}">Přihlásit se</a> | <a href="{% url 'register' %}">Registrovat</a></p>
     {% endif %}
 -->
+    {% block content %}
     <!-- Navigační lišta -->
     <div class="navbar">
         {% if user.is_authenticated %}
@@ -36,6 +38,8 @@
             <a href="{% url 'register' %}">Registrace</a>
         {% endif %}
     </div>
+
+
 
     <!-- Nadpis -->
     <h2>Seznam výletů</h2>
@@ -116,6 +120,8 @@
         return cookieValue;
     }
 </script>
+
+{% endblock %}
 
 </body>
 </html>

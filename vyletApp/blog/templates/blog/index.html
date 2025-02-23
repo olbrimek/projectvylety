@@ -1,0 +1,31 @@
+{% extends 'vylety/base.html' %}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seznam výletů</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'vylety/style.css' %}">
+
+</head>
+<body>
+{% block title %}Blog{% endblock %}
+{% block content %}
+
+<!-- Navigační lišta -->
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            Přihlášen jako <strong>{{ user.username }}</strong> | <a href="{% url 'logout' %}">Odhlásit</a>
+        {% else %}
+            <a href="{% url 'login' %}">Přihlášení</a>
+            <a href="{% url 'register' %}">Registrace</a>
+        {% endif %}
+    </div>
+
+  <h2>Blog</h2>
+  <p>Seznam článků zde...</p>
+{% endblock %}
+</body>
+</html>

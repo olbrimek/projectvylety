@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Vylet
+from django.contrib import messages
 
 # Zobrazení výletů
 def index(request):
@@ -33,6 +34,9 @@ def user_login(request):
         if user:
             login(request, user)
             return redirect('/')
+        else:
+            messages.error(request, "Špatné uživatelské jméno nebo heslo!")
+
     return render(request, 'vylety/login.html')
 
 # Odhlášení uživatele

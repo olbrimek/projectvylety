@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrace</title>
+
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'vylety/style.css' %}">
+
 </head>
 <body>
-    <h2>Registrace</h2>
+   <!-- <h2>Registrace</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Registrovat</button>
     </form>
     <p>Již máte účet? <a href="{% url 'login' %}">Přihlaste se</a></p>
+    -->
+
+<div class="auth-container">
+        <h2>Registrace</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrovat</button>
+        </form>
+        <p>Již máte účet? <a href="{% url 'login' %}">Přihlaste se</a></p>
+    </div>
+
 </body>
 </html>

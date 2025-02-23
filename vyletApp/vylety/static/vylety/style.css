@@ -2,10 +2,62 @@
     <style>
         /* Celkový styl stránky */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f8f8;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hlavní nadpis */
+h2 {
+    text-align: center;
+    font-size: 36px; /* Zvětšení textu */
+    margin-top: 20px;
+}
+
+/* Přihlášení a registrace doprava */
+.navbar {
+    text-align: right;
+    padding: 10px 20px;
+    background-color: #ddd;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+/* Zarovnání formuláře do středu */
+form {
+    width: 50%;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Zvýraznění vstupních polí */
+input, button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkblue;
+}
 
         /* Zarovnání tabulky do středu */
         table {

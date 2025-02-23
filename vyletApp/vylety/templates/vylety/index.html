@@ -10,13 +10,14 @@
 
 </head>
 <body>
-    <h2>Seznam výletů</h2>
+
+    <!--<h2>Seznam výletů</h2>
 
     {% if user.is_authenticated %}
         <p>Přihlášen jako <strong>{{ user.username }}</strong> | <a href="{% url 'logout' %}">Odhlásit</a></p>
 
-        <!-- Formulář pro přidání výletu -->
-        <form id="tripForm">
+         Formulář pro přidání výletu -->
+        <!--<form id="tripForm">
             <input type="text" id="name" placeholder="Název výletu" required>
             <input type="date" id="date" required>
             <input type="text" id="description" placeholder="Popis výletu" required>
@@ -25,7 +26,29 @@
     {% else %}
         <p><a href="{% url 'login' %}">Přihlásit se</a> | <a href="{% url 'register' %}">Registrovat</a></p>
     {% endif %}
+-->
+    <!-- Navigační lišta -->
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            Přihlášen jako <strong>{{ user.username }}</strong> | <a href="{% url 'logout' %}">Odhlásit</a>
+        {% else %}
+            <a href="{% url 'login' %}">Přihlášení</a>
+            <a href="{% url 'register' %}">Registrace</a>
+        {% endif %}
+    </div>
 
+    <!-- Nadpis -->
+    <h2>Seznam výletů</h2>
+
+    <!-- Formulář pro přidání výletu -->
+    {% if user.is_authenticated %}
+        <form id="tripForm">
+            <input type="text" id="name" placeholder="Název výletu" required>
+            <input type="date" id="date" required>
+            <input type="text" id="description" placeholder="Popis výletu" required>
+            <button type="submit">Přidat výlet</button>
+        </form>
+    {% endif %}
     <table>
         <tr>
             <th>ID</th>

@@ -1,0 +1,37 @@
+<head>
+    <style>
+        /* Celkový styl stránky */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+        }
+
+        /* Zarovnání tabulky do středu */
+        table {
+            width: 80%; /* Prodloužení tabulky */
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ohraničení buněk */
+        th, td {
+            border: 2px solid black;
+            padding: 15px; /* Větší buňky */
+            text-align: left;
+        }
+
+        /* Zvýraznění hlavičky */
+        th {
+            background-color: lightgray;
+            text-transform: uppercase;
+        }
+
+        /* Střídavé barvy řádků */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>

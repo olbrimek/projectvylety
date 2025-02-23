@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seznam výletů</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'vylety/style.css' %}">
+
 </head>
 <body>
     <h2>Seznam výletů</h2>
@@ -49,5 +53,46 @@
             location.reload();
         }
     </script>
+<script>
+    document.getElementById("tripForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const date = document.getElementById("date").value;
+        const description = document.getElementById("description").value;
+
+        const response = await fetch("/add_vylet/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")  // CSRF ochrana
+            },
+            body: JSON.stringify({ name, date, description })
+        });
+
+        const data = await response.json();
+        if (data.status === "success") {
+            location.reload();  // Obnoví stránku a zobrazí nový výlet
+        } else {
+            alert("Chyba: " + data.message);
+        }
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
 </body>
 </html>

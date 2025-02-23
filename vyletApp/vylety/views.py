@@ -9,7 +9,8 @@ from .models import Vylet
 # Zobrazení výletů
 def index(request):
     vylety = Vylet.objects.all()
-    return render(request, 'vylety/index.html', {'vylety': vylety, 'user': request.user})
+
+    return render(request, "vylety/index.html", {"vylety": vylety})
 
 # Registrace uživatele
 def register(request):

@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'galerie',
     'komentare',
     'profily',
+
+# Django REST Framework
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

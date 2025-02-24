@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('vylety.urls')),
@@ -25,3 +26,4 @@ urlpatterns = [
     path('komentare/', include('komentare.urls')),
     path('profily/', include('profily.urls')),
 ]
+

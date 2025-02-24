@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Vylet
 from django.contrib import messages
+from rest_framework import generics, permissions
+from .serializers import VyletSerializer
+
 
 # Zobrazení výletů
 def index(request):

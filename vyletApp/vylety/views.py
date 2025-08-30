@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Vylet
@@ -9,11 +9,15 @@ from django.contrib import messages
 from rest_framework import generics, permissions
 from .serializers import VyletSerializer
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+def is_admin(user):
+    return user.is_staff or user.is_superuser
 
 # Zobrazení výletů
 def index(request):
     vylety = Vylet.objects.all()
-    users = User.objects.all()  # Oprava zde
+    users = User.objects.all()
     return render(request, "vylety/index.html", {"vylety": vylety, "users": users})
 
 # Registrace uživatele
@@ -39,7 +43,6 @@ def user_login(request):
             return redirect('/')
         else:
             messages.error(request, "Špatné uživatelské jméno nebo heslo!")
-
     return render(request, 'vylety/login.html')
 
 # Odhlášení uživatele
@@ -49,24 +52,41 @@ def user_logout(request):
 
 # API: Přidání výletu (pouze pro přihlášené uživatele)
 @csrf_exempt
+@login_required
 def add_vylet(request):
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST":
         data = json.loads(request.body)
-        Vylet.objects.create(name=data['name'], date=data['date'], description=data['description'], user=request.user)
+        Vylet.objects.create(
+            name=data['name'],
+            date=data['date'],
+            description=data['description'],
+            user=request.user
+        )
         return JsonResponse({"status": "success"})
-    return JsonResponse({"status": "error", "message": "Nejste přihlášen!"}, status=401)
+    return JsonResponse({"status": "error", "message": "Neplatná metoda!"}, status=400)
 
-# API: Smazání výletu
+# API: Smazání výletu (uživatel může smazat svůj, admin může smazat jakýkoliv)
 @csrf_exempt
+@login_required
 def delete_vylet(request, id):
-    if request.method == "DELETE" and request.user.is_authenticated:
-        Vylet.objects.filter(id=id, user=request.user).delete()
-        return JsonResponse({"status": "success"})
-    return JsonResponse({"status": "error", "message": "Nejste přihlášen!"}, status=401)
-from django.shortcuts import render
+    if request.method == "DELETE":
+        vylet = get_object_or_404(Vylet, id=id)
+        if request.user == vylet.user or is_admin(request.user):
+            vylet.delete()
+            return JsonResponse({"status": "success"})
+        else:
+            return JsonResponse({"status": "error", "message": "Nemáte oprávnění!"}, status=403)
+    return JsonResponse({"status": "error", "message": "Neplatná metoda!"}, status=400)
 
+# Admin: Editace uživatele (pouze admin)
+@user_passes_test(is_admin)
+def edit_user(request, id):
+    user = get_object_or_404(User, id=id)
+    # Zde přidejte logiku pro editaci uživatele (např. formulář)
+    return render(request, 'vylety/edit_user.html', {'user': user})
 
+# Výpis uživatelů (pouze admin)
+@user_passes_test(is_admin)
 def seznam_uzivatelu(request):
     users = User.objects.all()
-    return render(request, 'seznam_uzivatelu.html', {'users': users})
-# Create your views here.
+    return render(request, 'vylety/seznam_uzivatelu.html', {'users': users})

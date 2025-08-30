@@ -60,7 +60,7 @@
         <strong>Komentáře:</strong>
         <ul>
             {% for komentar in vylet.komentare.all %}
-                <li>{{ komentar.autor.username }}: {{ komentar.text }} ({{ komentar.created|date:"d.m.Y H:i" }})</li>
+                <li>{{ komentar.uzivatel.username }}: {{ komentar.text }} ({{ komentar.datum|date:"d.m.Y H:i" }})</li>
             {% empty %}
                 <li>Žádné komentáře.</li>
             {% endfor %}

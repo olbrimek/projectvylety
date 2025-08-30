@@ -20,14 +20,18 @@
         {% endif %}
     </div>
 
-<h2>Všechny komentáře</h2>
-<ul>
-    {% for komentar in komentare %}
-        <li>
-            {{ komentar.uzivatel.username }} k výletu {{ komentar.vylet.name }}: {{ komentar.text }} ({{ komentar.datum|date:"d.m.Y H:i" }})
-        </li>
-    {% empty %}
-        <li>Žádné komentáře.</li>
+<h2>Komentáře podle výletů</h2>
+{% for vylet in vylety %}
+    <h3>{{ vylet.name }}</h3>
+    <div>
+        {% for komentar in vylet.komentare.all %}
+            <div>
+                {{ komentar.uzivatel.username }}: {{ komentar.text }} ({{ komentar.datum|date:"d.m.Y H:i" }})
+            </div>
+        {% empty %}
+            <div>Žádné komentáře.</div>
+        {% endfor %}
+    </div>
     {% endfor %}
 </ul>
 {% endblock %}

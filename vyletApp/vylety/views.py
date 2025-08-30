@@ -8,13 +8,13 @@ from .models import Vylet
 from django.contrib import messages
 from rest_framework import generics, permissions
 from .serializers import VyletSerializer
-
+from django.contrib.auth.models import User
 
 # Zobrazení výletů
 def index(request):
     vylety = Vylet.objects.all()
-
-    return render(request, "vylety/index.html", {"vylety": vylety})
+    users = User.objects.all()  # Oprava zde
+    return render(request, "vylety/index.html", {"vylety": vylety, "users": users})
 
 # Registrace uživatele
 def register(request):
@@ -65,4 +65,8 @@ def delete_vylet(request, id):
     return JsonResponse({"status": "error", "message": "Nejste přihlášen!"}, status=401)
 from django.shortcuts import render
 
+
+def seznam_uzivatelu(request):
+    users = User.objects.all()
+    return render(request, 'seznam_uzivatelu.html', {'users': users})
 # Create your views here.

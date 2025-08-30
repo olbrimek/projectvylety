@@ -22,6 +22,12 @@
             <a href="{% url 'login' %}">Přihlášení</a>
             <a href="{% url 'register' %}">Registrace</a>
         {% endif %}
+        <!-- Výpis uživatelů -->
+    <span>Uživatelé: 
+        {% for u in users %}
+            {{ u.username }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </span>
     </div>
 
 

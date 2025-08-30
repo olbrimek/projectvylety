@@ -18,14 +18,8 @@
             <a href="{% url 'login' %}">Přihlášení</a>
             <a href="{% url 'register' %}">Registrace</a>
         {% endif %}
-        <!-- Výpis uživatelů -->
-        <span>Uživatelé: 
-            {% for u in users %}
-                {{ u.username }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </span>
-    </div>
-
+        
+    </div>    
     <!-- Nadpis -->
     <h2>Seznam výletů</h2>
 
@@ -61,6 +55,26 @@
             </td>
             {% endif %}
         </tr>
+        <tr>
+    <td colspan="5">
+        <strong>Komentáře:</strong>
+        <ul>
+            {% for komentar in vylet.komentare.all %}
+                <li>{{ komentar.autor.username }}: {{ komentar.text }} ({{ komentar.created|date:"d.m.Y H:i" }})</li>
+            {% empty %}
+                <li>Žádné komentáře.</li>
+            {% endfor %}
+        </ul>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'pridat_komentar' vylet.id %}">
+                {% csrf_token %}
+                <input type="text" name="text" placeholder="Přidat komentář" required>
+                <button type="submit">Odeslat</button>
+            </form>
+        {% endif %}
+    </td>
+</tr>
+
         {% endfor %}
     </table>
 

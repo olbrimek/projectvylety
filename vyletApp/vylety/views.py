@@ -10,6 +10,7 @@ from rest_framework import generics, permissions
 from .serializers import VyletSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
+from komentare.models import Komentar
 
 def is_admin(user):
     return user.is_staff or user.is_superuser
@@ -90,3 +91,13 @@ def edit_user(request, id):
 def seznam_uzivatelu(request):
     users = User.objects.all()
     return render(request, 'vylety/seznam_uzivatelu.html', {'users': users})
+
+def index(request):
+    vylety = Vylet.objects.all()
+    users = User.objects.all()
+    komentare = Komentar.objects.all()
+    return render(request, "vylety/index.html", {
+        "vylety": vylety,
+        "users": users,
+        "komentare": komentare
+    })

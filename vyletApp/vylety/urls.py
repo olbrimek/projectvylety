@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('add_vylet/', views.add_vylet, name='add_vylet'),
     path('delete_vylet/<int:id>/', views.delete_vylet, name='delete_vylet'),
+    path('komentare/', include('komentare.urls')),
 ]
